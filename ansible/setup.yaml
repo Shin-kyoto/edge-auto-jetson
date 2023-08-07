@@ -4,10 +4,13 @@
     - ros_distro: humble
     - network_config:
         ros:
-          interface_address: 192.168.2.2
-          interface_name: eth1
-        dhcp:
+          interface_address: 192.168.2.1
           interface_name: eth0
+        ptp:
+          interface_address: 192.168.1.1
+          interface_name: eth1
+        # dhcp:
+        #   interface_name: eth1
     - ptp4l_client_interface: eth1
   vars_prompt:
     - name: prompt_install_camera_driver
@@ -21,16 +24,16 @@
   roles:
     - role: autoware
     - role: cuda
-    # - role: cyclonedds
+    - role: cyclonedds
     - role: docker
     - role: vcstool
     # - role: calibration_tools
     - role: tier4_hdr_camera_driver
       when: prompt_install_camera_driver == 'y'
     - role: ros2
-    # - role: ptp4l_client
-    #   when: prompt_configure_network == 'y'
-    # - role: enlarge_txqueue
-    #   when: prompt_configure_network == 'y'
-    # - role: netplan
-    #   when: prompt_configure_network == 'y'
+    - role: ptp4l_client
+      when: prompt_configure_network == 'y'
+    - role: enlarge_txqueue
+      when: prompt_configure_network == 'y'
+    - role: netplan
+      when: prompt_configure_network == 'y'

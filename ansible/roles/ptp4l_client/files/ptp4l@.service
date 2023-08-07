@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/ptp4l -i %i -m -S -A -s
+ExecStart=/usr/sbin/ptp4l -i %i -s -m -P -H -2 --step_threshold=0.00002
 ExecStop=/usr/bin/pkill -f ptp4l
 Restart=always
 RestartSec=5
