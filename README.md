@@ -1,3 +1,19 @@
+# edge-auto-jetson.rd
+
+To run ansible for edge-auto-jetson.rd, specify the "host_address" as follows:
+
+```bash
+./setup-dev-env.sh host_address
+```
+
+Here, "host_address" represents the last part of the IP address you want to set for the ECU. For example, if the IP address is 192.168.2.1, you should use "1" as the "host_address".
+
+Example Execution:
+
+```bash
+./setup-dev-env.sh 1
+```
+
 # edge-auto-jetson
 
 This repository provides a sample ROS2 environment working on a Jetson-based ECU and GMSL2-compatible cameras.

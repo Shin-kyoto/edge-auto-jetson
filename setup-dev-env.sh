@@ -4,6 +4,15 @@ SCRIPT_DIR=$(readlink -f "$(dirname "$0")")
 
 echo -e "\e[36mUpdating python and installing ansible modules.\e[0m"
 
+# Check the number of arguments
+if [ $# -ne 1 ]; then
+    echo "Missing argument. Please specify the host_address."
+    exit 1
+fi
+
+# Get host_address from the argument
+host_address=$1
+
 # Install sudo
 if ! (command -v sudo >/dev/null 2>&1); then
     apt-get -y update
@@ -49,7 +58,7 @@ export PATH="$HOME/.local/bin:$PATH"
 echo -e "\e[36mRunning ansible playbook to setup ECU.\e[0m"
 
 # Run ansible
-if ansible-playbook "${SCRIPT_DIR}"/ansible/setup.yaml --ask-become-pass; then
+if ansible-playbook "${SCRIPT_DIR}"/ansible/setup.yaml --ask-become-pass --extra-vars "host_address=${host_address}"; then
     echo -e "\e[32mCompleted.\e[0m"
     exit 0
 else
