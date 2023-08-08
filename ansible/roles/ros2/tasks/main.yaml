@@ -319,7 +319,7 @@
 
 - name: Check ROS build directory existence
   ansible.builtin.stat:
-    path: /opt/ros/{{ ros_distro }}
+    path: /opt/ros/{{ ros_distro }}/build
   register: ros_build_dir_exist
 
 - name: Build ROS
